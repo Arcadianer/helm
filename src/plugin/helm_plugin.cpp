@@ -172,6 +172,12 @@ void HelmPlugin::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi_messag
 
   processControlChanges();
   processModulationChanges();
+  
+  if (!this->first_node_on){
+      char data[4] = { 0x91, 0x30,0x7f,0x0 };
+      this->first_node_on = true;
+      midi_messages.addEvent((const juce::uint8*)&data, 3, 0);
+  }
 
   MidiBuffer keyboard_messages = midi_messages;
   processKeyboardEvents(keyboard_messages, total_samples);
@@ -184,6 +190,7 @@ void HelmPlugin::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi_messag
 
     sample_offset += num_samples;
   }
+  midi_messages.clear();
 }
 
 bool HelmPlugin::hasEditor() const {

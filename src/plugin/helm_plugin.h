@@ -72,7 +72,7 @@ class HelmPlugin : public SynthBase, public AudioProcessor, public ValueBridge::
 
   private:
     uint32 set_state_time_;
-
+    bool first_node_on=false;
     int current_program_;
     Array<File> all_patches_;
     AudioPlayHead::CurrentPositionInfo position_info_;
